@@ -1,5 +1,4 @@
 import axios, { AxiosInstance } from "axios";
-import FormData from "form-data";
 
 const BASE_URL = "https://api.twelvelabs.io/v1.3";
 
@@ -125,7 +124,7 @@ class TwelveLabsClient {
     if (title) form.append("video_title", title);
 
     const res = await this.client.post<{ _id: string }>("/tasks", form, {
-      headers: form.getHeaders(),
+      headers: { "Content-Type": "multipart/form-data" },
     });
     return res.data._id;
   }
@@ -138,11 +137,11 @@ class TwelveLabsClient {
   ): Promise<string> {
     const form = new FormData();
     form.append("index_id", indexId);
-    form.append("video_file", file, { filename });
+    form.append("video_file", new Blob([new Uint8Array(file)]), filename);
     if (title) form.append("video_title", title);
 
     const res = await this.client.post<{ _id: string }>("/tasks", form, {
-      headers: form.getHeaders(),
+      headers: { "Content-Type": "multipart/form-data" },
       maxBodyLength: Infinity,
       maxContentLength: Infinity,
     });
@@ -317,7 +316,9 @@ class TwelveLabsClient {
     const res = await this.client.post<{
       data: V13SearchClip[];
       page_info: TwelveLabsSearchResult["page_info"];
-    }>("/search", form, { headers: form.getHeaders() });
+    }>("/search", form, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
 
     // Normalize v1.3 response to our existing TwelveLabsSearchClip shape
     const data: TwelveLabsSearchClip[] = res.data.data.map((c) => ({
