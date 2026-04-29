@@ -1,65 +1,150 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+import {
+  BookOpen,
+  Upload,
+  Search,
+  Sparkles,
+  Network,
+  ArrowRight,
+  Video,
+  MessageCircle,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { VideoCard, VideoCardSkeleton } from "@/components/video/VideoCard";
+import { useVideos } from "@/hooks/useVideos";
+
+const features = [
+  {
+    icon: Sparkles,
+    title: "AI Summaries",
+    description:
+      "Get instant summaries of any lecture — full video or section by section.",
+    color: "bg-purple-500/10 text-purple-600",
+  },
+  {
+    icon: BookOpen,
+    title: "Smart Chapters",
+    description:
+      "Automatically divided into meaningful chapters with timestamps you can jump to.",
+    color: "bg-blue-500/10 text-blue-600",
+  },
+  {
+    icon: MessageCircle,
+    title: "Talk to Video",
+    description:
+      "Ask questions in plain English and get answers with relevant timestamps.",
+    color: "bg-green-500/10 text-green-600",
+  },
+  {
+    icon: Search,
+    title: "Semantic Search",
+    description:
+      "Search by meaning, not keywords — find exactly what you need across all lectures.",
+    color: "bg-orange-500/10 text-orange-600",
+  },
+  {
+    icon: Network,
+    title: "Concept Linking",
+    description:
+      "Discover when concepts appear across multiple lectures and jump right there.",
+    color: "bg-pink-500/10 text-pink-600",
+  },
+];
+
+export default function DashboardPage() {
+  const { data: videos, isLoading } = useVideos();
+  const recentVideos = videos?.slice(0, 6) ?? [];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="container mx-auto px-4 py-10">
+      {/* Hero */}
+      <div className="mb-12 text-center">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
+          <BookOpen className="h-8 w-8 text-primary" />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <h1 className="mb-3 text-4xl font-bold tracking-tight">
+          Learn smarter from every lecture
+        </h1>
+        <p className="mx-auto max-w-xl text-lg text-muted-foreground">
+          LectureLinQ uses AI to summarize, organize, and answer questions about
+          your lecture videos — so you focus on understanding, not rewatching.
+        </p>
+        <div className="mt-6 flex items-center justify-center gap-3">
+          <Link href="/videos/upload">
+            <Button size="lg" className="gap-2">
+              <Upload className="h-4 w-4" />
+              Add Your First Lecture
+            </Button>
+          </Link>
+          <Link href="/search">
+            <Button size="lg" variant="outline" className="gap-2">
+              <Search className="h-4 w-4" />
+              Search Lectures
+            </Button>
+          </Link>
         </div>
-      </main>
+      </div>
+
+      {/* Features */}
+      <div className="mb-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {features.map(({ icon: Icon, title, description, color }) => (
+          <Card key={title} className="border-0 bg-muted/40">
+            <CardContent className="p-5">
+              <div className={`mb-3 flex h-10 w-10 items-center justify-center rounded-xl ${color}`}>
+                <Icon className="h-5 w-5" />
+              </div>
+              <h3 className="mb-1 font-semibold">{title}</h3>
+              <p className="text-sm text-muted-foreground">{description}</p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Recent lectures */}
+      <div>
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Recent Lectures</h2>
+          <Link href="/videos">
+            <Button variant="ghost" size="sm" className="gap-1">
+              View all
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Button>
+          </Link>
+        </div>
+
+        {isLoading ? (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <VideoCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : recentVideos.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-dashed py-16 text-center">
+            <Video className="h-12 w-12 text-muted-foreground/30" />
+            <div>
+              <p className="font-medium">No lectures yet</p>
+              <p className="text-sm text-muted-foreground">
+                Add your first lecture to get started.
+              </p>
+            </div>
+            <Link href="/videos/upload">
+              <Button className="gap-2">
+                <Upload className="h-4 w-4" />
+                Add a Lecture
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {recentVideos.map((video) => (
+              <VideoCard key={video.id} video={video} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

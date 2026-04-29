@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git ls-tree *)",
+      "Bash(git checkout *)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --yes --name lecturelinq)",
+      "Read(//d/Projects/**)",
+      "Bash(npx create-next-app@latest lecturelinq-temp --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npm install *)",
+      "Bash(npx shadcn@latest init --defaults)",
+      "Bash(npx shadcn@latest add card badge tabs textarea input label separator scroll-area progress toast dialog sheet)",
+      "Bash(npx shadcn@latest add card badge tabs textarea input label separator scroll-area progress dialog sheet sonner skeleton select)",
+      "Bash(npx shadcn@latest add slider dropdown-menu)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "WebFetch(domain:docs.twelvelabs.io)",
+      "WebSearch",
+      "Bash(curl -s http://localhost:3000/api/debug/twelvelabs)",
+      "Bash(node -e ' *)",
+      "Bash(curl -sL \"https://download.samplelib.com/mp4/sample-30s.mp4\" -o videos/sample-30s.mp4)",
+      "Bash(curl -sL \"https://download.samplelib.com/mp4/sample-30s.mp4\" -o videos/sample.mp4)",
+      "Bash(ffmpeg -version)",
+      "Bash(node scripts/clear-db.mjs)"
+    ]
+  }
+}
