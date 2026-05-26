@@ -1,6 +1,6 @@
 # LectureLinQ
 
-**Live demo:** <!-- paste your deployed URL here -->
+**Live demo:** 
 
 **Make your lecture videos searchable, summarizable, and conversational — powered by multimodal AI.**
 
@@ -12,13 +12,15 @@ Built with [Twelve Labs](https://twelvelabs.io) (Marengo + Pegasus models), [Neo
 
 ## Features
 
-| Feature | Description |
-|---|---|
-| **AI Summaries** | Instant summaries of any lecture — full video or section by section |
-| **Smart Chapters** | Auto-divided into 3–8 meaningful chapters with timestamps you can jump to |
-| **Talk to Video** | Ask questions in plain English and get answers with relevant timestamps |
-| **Semantic Search** | Search by meaning, not keywords — find content across all lectures |
-| **Concept Linking** | Discover when concepts appear across multiple lectures |
+
+| Feature             | Description                                                               |
+| ------------------- | ------------------------------------------------------------------------- |
+| **AI Summaries**    | Instant summaries of any lecture — full video or section by section       |
+| **Smart Chapters**  | Auto-divided into 3–8 meaningful chapters with timestamps you can jump to |
+| **Talk to Video**   | Ask questions in plain English and get answers with relevant timestamps   |
+| **Semantic Search** | Search by meaning, not keywords — find content across all lectures        |
+| **Concept Linking** | Discover when concepts appear across multiple lectures                    |
+
 
 ---
 
@@ -55,10 +57,12 @@ DATABASE_URL=postgresql://user:password@host/dbname?sslmode=require
 TWELVE_LABS_API_KEY=tlk_your_api_key_here
 ```
 
-| Variable | Where to get it |
-|---|---|
-| `DATABASE_URL` | Neon dashboard → your project → Connection string |
+
+| Variable              | Where to get it                                                      |
+| --------------------- | -------------------------------------------------------------------- |
+| `DATABASE_URL`        | Neon dashboard → your project → Connection string                    |
 | `TWELVE_LABS_API_KEY` | [Twelve Labs dashboard](https://playground.twelvelabs.io) → API Keys |
+
 
 ---
 
@@ -98,7 +102,7 @@ pnpm db:migrate   # Run generated migrations
 pnpm db:studio    # Open Drizzle Studio (visual database browser)
 ```
 
-The schema lives in [`src/lib/db/schema.ts`](src/lib/db/schema.ts) and includes tables for videos, video chunks (for long-video splitting), chapters, and summaries.
+The schema lives in `[src/lib/db/schema.ts](src/lib/db/schema.ts)` and includes tables for videos, video chunks (for long-video splitting), chapters, and summaries.
 
 ---
 
@@ -109,12 +113,6 @@ The schema lives in [`src/lib/db/schema.ts`](src/lib/db/schema.ts) and includes 
 3. **Poll** — The status endpoint polls Twelve Labs until indexing is complete, then marks the video as `ready`.
 4. **Enrich** — Once ready, you can generate a summary, chapter list, and highlights — all via Pegasus's `/analyze` endpoint.
 5. **Search & Q&A** — Marengo powers semantic search across all indexed lectures. Pegasus answers freeform questions about any individual video.
-
----
-
-## Deployment
-
-See the live demo link at the top of this README.
 
 ---
 
